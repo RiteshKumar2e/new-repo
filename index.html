@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message for You</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            opacity: 0;
+            animation: fadeIn 0.8s forwards;
+            box-sizing: border-box;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-sizing: border-box;
+        }
+
+        .heart {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+        }
+
+        h1 {
+            color: #764ba2;
+            font-size: 48px;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        h2 {
+            color: #667eea;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            color: #555;
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .message p {
+            margin-bottom: 15px;
+        }
+
+        .custom-message {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Georgia', serif;
+            margin-bottom: 20px;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s;
+        }
+
+        .custom-message:focus {
+            outline: none;
+            border-color: #764ba2;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+            margin: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(118, 75, 162, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .flowers {
+            font-size: 40px;
+            margin-top: 30px;
+            letter-spacing: 10px;
+        }
+
+        .navigation {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(118, 75, 162, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .nav-dot.active {
+            background: #764ba2;
+            width: 30px;
+            border-radius: 6px;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .memory-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 16px;
+            color: #555;
+            transition: transform 0.3s;
+        }
+
+        .memory-card:hover {
+            transform: scale(1.05);
+        }
+
+        .promise-list {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .promise-item {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .reason-card {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            text-align: left;
+            transition: transform 0.3s;
+        }
+
+        .reason-card:hover {
+            transform: translateX(10px);
+        }
+
+        .signature {
+            margin-top: 30px;
+            font-style: italic;
+            color: #888;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+
+            .page {
+                padding: 20px 10px;
+                min-height: 100vh;
+            }
+
+            .container {
+                padding: 30px 20px;
+                max-width: 100%;
+                margin: 0 10px;
+            }
+
+            .heart {
+                font-size: 60px;
+                margin-bottom: 15px;
+            }
+
+            h1 {
+                font-size: 32px;
+                margin-bottom: 20px;
+                line-height: 1.2;
+            }
+
+            h2 {
+                font-size: 26px;
+                margin-bottom: 15px;
+                line-height: 1.3;
+            }
+
+            .message {
+                font-size: 16px;
+                line-height: 1.6;
+                margin-bottom: 20px;
+            }
+
+            .message p {
+                margin-bottom: 12px;
+            }
+
+            .memory-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin: 20px 0;
+            }
+
+            .memory-card {
+                padding: 15px;
+                font-size: 15px;
+            }
+
+            .reason-card {
+                padding: 15px;
+                margin: 10px 0;
+                font-size: 15px;
+            }
+
+            .promise-item {
+                padding: 12px;
+                margin: 8px 0;
+                font-size: 15px;
+            }
+
+            .custom-message {
+                font-size: 15px;
+                padding: 12px;
+                min-height: 100px;
+                margin-bottom: 15px;
+            }
+
+            button {
+                padding: 12px 30px;
+                font-size: 16px;
+                margin: 8px 5px;
+                width: auto;
+            }
+
+            .flowers {
+                font-size: 30px;
+                margin-top: 20px;
+                letter-spacing: 5px;
+            }
+
+            .navigation {
+                margin-top: 20px;
+                gap: 8px;
+            }
+
+            .nav-dot {
+                width: 10px;
+                height: 10px;
+            }
+
+            .nav-dot.active {
+                width: 25px;
+            }
+
+            .signature {
+                font-size: 15px;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 15px;
+                border-radius: 15px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .message {
+                font-size: 15px;
+            }
+
+            .heart {
+                font-size: 50px;
+            }
+
+            button {
+                padding: 10px 25px;
+                font-size: 15px;
+                width: calc(100% - 10px);
+                max-width: 280px;
+            }
+
+            .flowers {
+                font-size: 25px;
+                letter-spacing: 3px;
+            }
+
+            .memory-card strong,
+            .reason-card strong,
+            .promise-item strong {
+                font-size: 14px;
+                display: block;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page 1: Initial Message -->
+    <div class="page active" id="page1">
+        <div class="container">
+            <div class="heart">💝</div>
+            <h1>Hey, Listen!</h1>
+            <div class="message">
+                <p>I'm not angry or upset with you at all! I just want you to know how much you mean to me and how special you are in my life.</p>
+                <p>Please take a moment to read what I have to say. I want to share some beautiful thoughts about you and us.</p>
+            </div>
+            <div class="flowers">🌸 🌹 🌺 🌻 🌷</div>
+            <div class="navigation">
+                <div class="nav-dot active" onclick="goToPage(1)"></div>
+                <div class="nav-dot" onclick="goToPage(2)"></div>
+                <div class="nav-dot" onclick="goToPage(3)"></div>
+                <div class="nav-dot" onclick="goToPage(4)"></div>
+                <div class="nav-dot" onclick="goToPage(5)"></div>
+            </div>
+            <button onclick="goToPage(2)">Continue Reading →</button>
+        </div>
+    </div>
+
+    <!-- Page 2: Memories -->
+    <div class="page" id="page2">
+        <div class="container">
+            <div class="heart">💭</div>
+            <h2>Our Beautiful Memories</h2>
+            <div class="message">
+                <p>I've been thinking about all the wonderful moments we've shared together. Each memory reminds me of why you're so special to me.</p>
+            </div>
+            <div class="memory-grid">
+                <div class="memory-card">
+                    <strong>🌟 The First Time</strong><br>
+                    When we first met, I knew there was something special about you
+                </div>
+                <div class="memory-card">
+                    <strong>😊 Your Smile</strong><br>
+                    The way your face lights up when you're happy - it makes my day
+                </div>
+                <div class="memory-card">
+                    <strong>💬 Our Talks</strong><br>
+                    Those deep conversations where we lost track of time
+                </div>
+                <div class="memory-card">
+                    <strong>🎉 Happy Moments</strong><br>
+                    All the laughter, joy, and fun we've had together
+                </div>
+            </div>
+            <div class="flowers">💕 💖 💗 💓 💝</div>
+            <div class="navigation">
+                <div class="nav-dot" onclick="goToPage(1)"></div>
+                <div class="nav-dot active" onclick="goToPage(2)"></div>
+                <div class="nav-dot" onclick="goToPage(3)"></div>
+                <div class="nav-dot" onclick="goToPage(4)"></div>
+                <div class="nav-dot" onclick="goToPage(5)"></div>
+            </div>
+            <button onclick="goToPage(1)">← Back</button>
+            <button onclick="goToPage(3)">Next →</button>
+        </div>
+    </div>
+
+    <!-- Page 3: Why You're Special -->
+    <div class="page" id="page3">
+        <div class="container">
+            <div class="heart">✨</div>
+            <h2>Why You're So Special</h2>
+            <div class="message">
+                <p>There are so many reasons why you mean the world to me. Let me count the ways:</p>
+            </div>
+            <div class="reason-card">
+                <strong>💎 Your Kind Heart</strong><br>
+                The way you care for everyone around you shows the beautiful person you are
+            </div>
+            <div class="reason-card">
+                <strong>🌈 Your Positive Energy</strong><br>
+                You light up every room you enter and make the world a better place
+            </div>
+            <div class="reason-card">
+                <strong>🎯 Your Strength</strong><br>
+                The way you handle challenges with grace inspires me every day
+            </div>
+            <div class="reason-card">
+                <strong>💫 Your Uniqueness</strong><br>
+                Everything about you makes you irreplaceable in my life
+            </div>
+            <div class="flowers">⭐ 🌟 ✨ 💫 ⭐</div>
+            <div class="navigation">
+                <div class="nav-dot" onclick="goToPage(1)"></div>
+                <div class="nav-dot" onclick="goToPage(2)"></div>
+                <div class="nav-dot active" onclick="goToPage(3)"></div>
+                <div class="nav-dot" onclick="goToPage(4)"></div>
+                <div class="nav-dot" onclick="goToPage(5)"></div>
+            </div>
+            <button onclick="goToPage(2)">← Back</button>
+            <button onclick="goToPage(4)">Next →</button>
+        </div>
+    </div>
+
+    <!-- Page 4: Understanding & Care -->
+    <div class="page" id="page4">
+        <div class="container">
+            <div class="heart">🤝</div>
+            <h2>Just Want You to Know</h2>
+            <div class="message">
+                <p>I'm not upset or angry at all. I just want you to understand how much I care about you. Here's what I want you to remember:</p>
+            </div>
+            <div class="promise-list">
+                <div class="promise-item">
+                    <strong>✨ I'm always here for you</strong><br>
+                    Your happiness and peace of mind matter deeply to me
+                </div>
+                <div class="promise-item">
+                    <strong>💪 We're in this together</strong><br>
+                    No matter what happens, I've got your back
+                </div>
+                <div class="promise-item">
+                    <strong>🌈 You make my life better</strong><br>
+                    Every day with you is a blessing
+                </div>
+                <div class="promise-item">
+                    <strong>💝 I appreciate everything</strong><br>
+                    All the little things you do mean the world to me
+                </div>
+                <div class="promise-item">
+                    <strong>🙏 Thank you for being you</strong><br>
+                    Your presence in my life is a gift I cherish
+                </div>
+            </div>
+            <div class="flowers">🌺 🌻 🌼 🌷 🌹</div>
+            <div class="navigation">
+                <div class="nav-dot" onclick="goToPage(1)"></div>
+                <div class="nav-dot" onclick="goToPage(2)"></div>
+                <div class="nav-dot" onclick="goToPage(3)"></div>
+                <div class="nav-dot active" onclick="goToPage(4)"></div>
+                <div class="nav-dot" onclick="goToPage(5)"></div>
+            </div>
+            <button onclick="goToPage(3)">← Back</button>
+            <button onclick="goToPage(5)">Next →</button>
+        </div>
+    </div>
+
+    <!-- Page 5: Personal Message & Final -->
+    <div class="page" id="page5">
+        <div class="container">
+            <div class="heart" id="finalHeart">❤️</div>
+            <h2>From My Heart to Yours</h2>
+            <div class="message">
+                <p>I'm not upset or angry with you at all! I just wanted to take a moment to tell you how amazing you are and how grateful I am to have you in my life.</p>
+                <p>You bring so much joy, laughter, and love into my world. I wanted to remind you of that today.</p>
+                <p>Thank you for being you, and thank you for reading this. You're truly special, and I hope you always remember how much you mean to me.</p>
+            </div>
+            <textarea class="custom-message" id="customMessage" placeholder="Add your personal heartfelt message here..."></textarea>
+            <button onclick="sendMessage()">Send My Message ❤️</button>
+            <div class="signature" id="signature"></div>
+            <div class="flowers">🌸 🌹 🌺 🌻 🌷 🌼 💐 🌵</div>
+            <div class="navigation">
+                <div class="nav-dot" onclick="goToPage(1)"></div>
+                <div class="nav-dot" onclick="goToPage(2)"></div>
+                <div class="nav-dot" onclick="goToPage(3)"></div>
+                <div class="nav-dot" onclick="goToPage(4)"></div>
+                <div class="nav-dot active" onclick="goToPage(5)"></div>
+            </div>
+            <button onclick="goToPage(4)">← Back</button>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+
+        function goToPage(pageNum) {
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            currentPage = pageNum;
+            document.getElementById(`page${currentPage}`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function sendMessage() {
+            const customMsg = document.getElementById('customMessage').value;
+            const signature = document.getElementById('signature');
+            const button = event.target;
+            const heart = document.getElementById('finalHeart');
+            
+            let fullMessage = "Hey! 💝\n\n";
+            fullMessage += "I'm not upset or angry with you at all! ";
+            fullMessage += "I just wanted to take a moment to tell you how special you are to me. ";
+            fullMessage += "You mean so much to me, and I'm grateful for you every day.\n\n";
+            
+            if (customMsg.trim()) {
+                fullMessage += "My Personal Message:\n" + customMsg + "\n\n";
+            }
+            
+            fullMessage += "With all my love ❤️";
+            
+            // Replace with your WhatsApp number (include country code, no + or spaces)
+            // Example: For India +91 1234567890, use: "911234567890"
+            const phone = "6206269895"; // Change this to your number
+            const waLink = `https://wa.me/${phone}?text=${encodeURIComponent(fullMessage)}`;
+            
+            window.open(waLink, '_blank');
+            
+            heart.style.color = '#ff6b6b';
+            heart.style.transform = 'scale(1.3)';
+            heart.style.animation = 'heartbeat 0.5s ease-in-out 5';
+            
+            signature.textContent = 'Opening WhatsApp to send the message... 💕';
+            
+            button.textContent = 'WhatsApp Opened! 💕';
+            button.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%)';
+            
+            setTimeout(() => {
+                signature.textContent = 'Message ready to send! 💌';
+                button.textContent = 'Send Another Message';
+                button.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            }, 2000);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentPage < 5) {
+                goToPage(currentPage + 1);
+            } else if (e.key === 'ArrowLeft' && currentPage > 1) {
+                goToPage(currentPage - 1);
+            }
+        });
+    </script>
+</body>
+</html>
