@@ -26,7 +26,7 @@ function sendMessage() {
     
     // Replace with your WhatsApp number (include country code, no + or spaces)
     // Example: For India +91 1234567890, use: "911234567890"
-    const phone = "916206269895"; // Change this to your number
+    const phone = "917004070199"; // Change this to your number
     const waLink = `https://wa.me/${phone}?text=${encodeURIComponent(fullMessage)}`;
     
     window.open(waLink, '_blank');
